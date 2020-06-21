@@ -17,6 +17,7 @@ import de.tr7zw.nbtapi.NBTContainer;
 import de.tr7zw.vanillatrading.ShopUtil;
 import de.tr7zw.vanillatrading.nms.NMSHandler;
 import de.tr7zw.vanillatrading.shop.gui.GuiUtil;
+import de.tr7zw.vanillatrading.shop.gui.ShopConfigGui;
 
 public interface ShopHolder {
 
@@ -49,9 +50,10 @@ public interface ShopHolder {
 
 	public default void onInteract(Player player) {
 		if (player.getUniqueId().equals(getOwner())) {
-			GuiUtil.selectItemGui(player, item -> {
+			new ShopConfigGui(this).openGui(player);
+			/*GuiUtil.selectItemGui(player, item -> {
 				player.sendMessage("Item: " + item);
-			});
+			});*/
 		} else {
 			NMSHandler.getNMS().openMerchant(player, getMerchant());
 		}

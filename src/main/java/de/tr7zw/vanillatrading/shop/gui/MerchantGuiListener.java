@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 import de.tr7zw.vanillatrading.nms.ShopMerchant;
 
-public class GuiListener implements Listener {
+public class MerchantGuiListener implements Listener {
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent event) {
