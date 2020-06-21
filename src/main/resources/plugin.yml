@@ -1,0 +1,8 @@
+main: de.tr7zw.vanillatrading.VanillaTrading
+name: VanillaTrading
+version: ${project.version}
+author: tr7zw
+dependtmp: [NBTAPI]
+api-version: 1.14
+commands:
+   vantrade:
