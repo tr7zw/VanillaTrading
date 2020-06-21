@@ -11,7 +11,6 @@ public class VanillaTrading extends JavaPlugin {
 	public void onEnable() {
 		Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
 		Bukkit.getPluginManager().registerEvents(new GuiListener(), this);
-		//this.getCommand("vantrade").setExecutor(new InfoCommand());
 	}
 	
 }
