@@ -11,4 +11,6 @@ public interface NMSImplementation {
 	
 	public void openMerchant(Player player, Merchant merchant);
 	
+	public void resetTrader(Merchant merchant);
+	
 }

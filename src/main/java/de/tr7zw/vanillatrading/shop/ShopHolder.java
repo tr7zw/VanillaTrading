@@ -3,25 +3,19 @@ package de.tr7zw.vanillatrading.shop;
 import java.util.Arrays;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftMerchantCustom;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
-import org.bukkit.inventory.MerchantInventory;
 import org.bukkit.inventory.MerchantRecipe;
 
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTContainer;
 import de.tr7zw.vanillatrading.ShopUtil;
 import de.tr7zw.vanillatrading.nms.NMSHandler;
-import net.minecraft.server.v1_15_R1.ChatComponentText;
 
 public interface ShopHolder {
 
@@ -69,6 +63,7 @@ public interface ShopHolder {
 			}
 		}
 		rePopulateTrades(getMerchant());
+		NMSHandler.getNMS().resetTrader(getMerchant());
 	}
 	
 	public default void rePopulateTrades(Merchant merchant) {

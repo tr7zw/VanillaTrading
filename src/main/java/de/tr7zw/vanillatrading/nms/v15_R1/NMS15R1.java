@@ -23,6 +23,13 @@ public class NMS15R1 implements NMSImplementation {
 		customMerchant.getMerchant().openTrade(((CraftPlayer)player).getHandle(), new ChatComponentText(customMerchant.getTitle()), 0);
 	}
 	
+
+	@Override
+	public void resetTrader(Merchant merchant) {
+		CustomShopMerchant customMerchant = (CustomShopMerchant) merchant;
+		customMerchant.getMerchant().setTradingPlayer(null);
+	}
+	
 	private static class CustomShopMerchant extends CraftMerchantCustom implements de.tr7zw.vanillatrading.nms.ShopMerchant {
 
 		private final String title;
