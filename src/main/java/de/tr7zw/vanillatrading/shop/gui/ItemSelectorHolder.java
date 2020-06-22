@@ -55,6 +55,7 @@ public class ItemSelectorHolder implements InventoryHolder, Listener {
 		if (event.getInventory().getHolder() != null && event.getInventory().getHolder() instanceof ItemSelectorHolder) {
 			ItemSelectorHolder holder = (ItemSelectorHolder) event.getInventory().getHolder();
 			if(!holder.completed) {
+				holder.completed = true;
 				holder.consumer.accept(null);
 			}
 		}

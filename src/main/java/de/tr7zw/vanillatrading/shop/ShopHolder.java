@@ -1,6 +1,8 @@
 package de.tr7zw.vanillatrading.shop;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Location;
@@ -46,14 +48,60 @@ public interface ShopHolder {
 		return UUID.fromString(getShopStorage().getString("ownerUUID"));
 	}
 
+	public default ItemStack getOutput(int id) {
+		if (getShopStorage().hasKey("output_" + id)) {
+			return getShopStorage().getItemStack("output_" + id);
+		}
+		return null;
+	}
+
+	public default ItemStack getInputOne(int id) {
+		if (getShopStorage().hasKey("input_1_" + id)) {
+			return getShopStorage().getItemStack("input_1_" + id);
+		}
+		return null;
+	}
+
+	public default ItemStack getInputTwo(int id) {
+		if (getShopStorage().hasKey("input_2_" + id)) {
+			return getShopStorage().getItemStack("input_2_" + id);
+		}
+		return null;
+	}
+
+	public default void setOutput(int id, ItemStack item) {
+		if (item == null) {
+			getShopStorage().removeKey("output_" + id);
+		} else {
+			getShopStorage().setItemStack("output_" + id, item);
+		}
+	}
+
+	public default void setInputOne(int id, ItemStack item) {
+		if (item == null) {
+			getShopStorage().removeKey("input_1_" + id);
+		} else {
+			getShopStorage().setItemStack("input_1_" + id, item);
+		}
+	}
+
+	public default void setInputTwo(int id, ItemStack item) {
+		if (item == null) {
+			getShopStorage().removeKey("input_2_" + id);
+		} else {
+			getShopStorage().setItemStack("input_2_" + id, item);
+		}
+	}
+
 	public Merchant getMerchant();
 
 	public default void onInteract(Player player) {
 		if (player.getUniqueId().equals(getOwner())) {
 			new ShopConfigGui(this).openGui(player);
-			/*GuiUtil.selectItemGui(player, item -> {
-				player.sendMessage("Item: " + item);
-			});*/
+			/*
+			 * GuiUtil.selectItemGui(player, item -> { player.sendMessage("Item: " + item);
+			 * });
+			 */
 		} else {
 			NMSHandler.getNMS().openMerchant(player, getMerchant());
 		}
@@ -76,9 +124,22 @@ public interface ShopHolder {
 	}
 
 	public default void rePopulateTrades(Merchant merchant) {
-		MerchantRecipe rec2 = new MerchantRecipe(new ItemStack(Material.BONE), 0, 64, false);
-		rec2.addIngredient(new ItemStack(Material.EMERALD));
-		merchant.setRecipes(Arrays.asList(rec2));
+		List<MerchantRecipe> trades = new ArrayList<MerchantRecipe>();
+		for (int i = 0; i < 12; i++) {
+			final int fi = i;
+			ItemStack output = getOutput(i);
+			ItemStack inputOne = getInputOne(i);
+			ItemStack inputTwo = getInputTwo(i);
+			if (output == null || (inputOne == null && inputTwo == null))
+				continue;
+			MerchantRecipe rec = new MerchantRecipe(output, 0, 64, false);
+			if (inputOne != null)
+				rec.addIngredient(inputOne);
+			if (inputTwo != null)
+				rec.addIngredient(inputTwo);
+			trades.add(rec);
+		}
+		merchant.setRecipes(trades);
 	}
 
 }
