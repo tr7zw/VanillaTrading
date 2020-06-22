@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
 
@@ -18,6 +19,7 @@ public class BlockHolder implements ShopHolder {
 	private final NBTCompound persistendHolder;
 	private Merchant shopMerchant = null;
 	private Map<Integer, Integer> mapping;
+	private Player openBy = null;
 
 	public BlockHolder(Block block, NBTTileEntity nbtTile) {
 		this.block = block;
@@ -54,6 +56,16 @@ public class BlockHolder implements ShopHolder {
 	@Override
 	public void setStoredIds(Map<Integer, Integer> mapping) {
 		this.mapping = mapping;
+	}
+
+	@Override
+	public void setOpenBy(Player player) {
+		openBy = player;
+	}
+
+	@Override
+	public boolean canBeUsedBy(Player player) {
+		return openBy == null || player == openBy;
 	}
 	
 }

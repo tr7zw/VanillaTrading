@@ -80,7 +80,7 @@ public class InteractListener implements Listener {
 					shop.onBreak();
 				} else {
 					event.setCancelled(true);
-					// TODO message
+					event.getPlayer().sendMessage("§cThis is not your shop.");
 				}
 			}
 		}

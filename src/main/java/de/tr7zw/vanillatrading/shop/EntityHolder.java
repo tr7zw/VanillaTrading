@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
 
@@ -53,6 +54,18 @@ public class EntityHolder implements ShopHolder {
 	public void setStoredIds(Map<Integer, Integer> mapping) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setOpenBy(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean canBeUsedBy(Player player) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

@@ -24,6 +24,7 @@ public abstract class TRGui {
 
 	public void clearGui() {
 		functions.clear();
+		functionSecondary.clear();
 		this.inventory.clear();
 	}
 

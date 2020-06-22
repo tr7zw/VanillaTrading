@@ -37,6 +37,10 @@ public interface ShopHolder {
 	public Map<Integer, Integer> getStoredIds();
 
 	public void setStoredIds(Map<Integer, Integer> mapping);
+	
+	public void setOpenBy(Player player);
+	
+	public boolean canBeUsedBy(Player player);
 
 	public default NBTCompound getShopStorage() {
 		if (!getPersistentDataContainer().hasKey("vanillatrading")) {
@@ -150,6 +154,11 @@ public interface ShopHolder {
 	public Merchant getMerchant();
 
 	public default void onInteract(Player player) {
+		if(!canBeUsedBy(player)) {
+			player.sendMessage("§cThis shop is in use!"); //TODO
+			return;
+		}
+		setOpenBy(player);
 		if (player.getUniqueId().equals(getOwner())) {
 			new ShopConfigGui(this).openGui(player);
 		} else {
@@ -197,6 +206,7 @@ public interface ShopHolder {
 		}
 		rePopulateTrades(getMerchant());
 		NMSHandler.getNMS().resetTrader(getMerchant());
+		setOpenBy(null);
 	}
 
 	public default ItemStack[] addItems(ItemStack[] inventory, ItemStack item, int times) {

@@ -1,11 +1,14 @@
 package de.tr7zw.vanillatrading;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import de.tr7zw.nbtapi.NBTEntity;
 import de.tr7zw.nbtapi.NBTTileEntity;
@@ -37,9 +40,24 @@ public class ShopUtil {
 		}
 		return null;
 	}
-	
+
 	public static void removeShop(Location location) {
 		loadedShops.remove(location);
+	}
+
+	public static ItemStack getNamedCopy(ItemStack item, String name) {
+		return getNamedCopy(item, name);
+	}
+
+	public static ItemStack getNamedCopy(ItemStack item, String name, String... lore) {
+		ItemStack nextItem = item.clone();
+		ItemMeta meta = nextItem.getItemMeta();
+		meta.setDisplayName(name);
+		if (lore != null && lore.length > 0) {
+			meta.setLore(Arrays.asList(lore));
+		}
+		nextItem.setItemMeta(meta);
+		return nextItem;
 	}
 
 }
