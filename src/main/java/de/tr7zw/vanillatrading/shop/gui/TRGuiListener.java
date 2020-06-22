@@ -18,7 +18,7 @@ import de.tr7zw.vanillatrading.shop.gui.TRGui.TRGuiHolder;
 public class TRGuiListener implements Listener {
 
 	private static final Set<InventoryAction> allowedActions = new HashSet<InventoryAction>(
-			Arrays.asList(InventoryAction.PICKUP_ALL));
+			Arrays.asList(InventoryAction.PICKUP_ALL, InventoryAction.PICKUP_HALF));
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent event) {
@@ -31,7 +31,7 @@ public class TRGuiListener implements Listener {
 			}
 			if (event.getCurrentItem() != null && event.getCurrentItem().getType() != Material.AIR) {
 				event.setCancelled(true);
-				holder.getGui().onClick(event.getSlot(), (Player)event.getWhoClicked());
+				holder.getGui().onClick(event.getSlot(), (Player)event.getWhoClicked(), event.getAction());
 				return;
 			}
 		}

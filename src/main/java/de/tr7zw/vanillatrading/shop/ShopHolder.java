@@ -16,6 +16,7 @@ import org.bukkit.inventory.MerchantRecipe;
 
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTContainer;
+import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.vanillatrading.ShopUtil;
 import de.tr7zw.vanillatrading.nms.NMSHandler;
 import de.tr7zw.vanillatrading.shop.gui.GuiUtil;
@@ -56,17 +57,64 @@ public interface ShopHolder {
 	}
 
 	public default ItemStack getInputOne(int id) {
-		if (getShopStorage().hasKey("input_1_" + id)) {
-			return getShopStorage().getItemStack("input_1_" + id);
+		return getInput(1, id);
+	}
+
+	public default ItemStack getInputTwo(int id) {
+		return getInput(2, id);
+	}
+	
+	default ItemStack getInput(int input, int id) {
+		if (getShopStorage().hasKey("input_" + input + "_" + id)) {
+			return getShopStorage().getItemStack("input_" + input + "_" + id);
 		}
 		return null;
 	}
 
-	public default ItemStack getInputTwo(int id) {
-		if (getShopStorage().hasKey("input_2_" + id)) {
-			return getShopStorage().getItemStack("input_2_" + id);
+	public default ItemStack[] getOutputStorage(int id) {
+		return getStorage("output", id);
+	}
+	
+	public default ItemStack[] getInputOneStorage(int id) {
+		return getStorage("input_1", id);
+	}
+	
+	public default ItemStack[] getInputTwoStorage(int id) {
+		return getStorage("input_2", id);
+	}
+	
+	public default ItemStack[] getStorage(String type, int id) {
+		if (getShopStorage().hasKey(type + "_" + id + "_storage")) {
+			List<String> itemStacks = getShopStorage().getStringList(type + "_" + id + "_storage");
+			ItemStack[] items = new ItemStack[itemStacks.size()];
+			int i = 0;
+			for (String item : itemStacks) {
+				items[i] = NBTItem.convertNBTtoItem(new NBTContainer(item));
+				i++;
+			}
+			return items;
 		}
-		return null;
+		return new ItemStack[0];
+	}
+
+	public default void setOutputStorage(int id, ItemStack[] items) {
+		setInputTwoStorage("output", id, items);
+	}
+	
+	public default void setInputOneStorage(int id, ItemStack[] items) {
+		setInputTwoStorage("input_1", id, items);
+	}
+	
+	public default void setInputTwoStorage(int id, ItemStack[] items) {
+		setInputTwoStorage("input_2", id, items);
+	}
+	
+	public default void setInputTwoStorage(String type, int id, ItemStack[] items) {
+		getShopStorage().removeKey(type + "_" + id + "_storage");
+		List<String> itemStacks = getShopStorage().getStringList(type + "_" + id + "_storage");
+		for(ItemStack item : items) {
+			itemStacks.add(NBTItem.convertItemtoNBT(item).toString());
+		}
 	}
 
 	public default void setOutput(int id, ItemStack item) {
