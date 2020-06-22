@@ -1,8 +1,11 @@
 package de.tr7zw.vanillatrading.shop;
 
+import java.util.Map;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.Merchant;
+import org.bukkit.inventory.MerchantRecipe;
 
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTEntity;
@@ -38,6 +41,18 @@ public class EntityHolder implements ShopHolder {
 	public Merchant getMerchant() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Map<Integer, Integer> getStoredIds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setStoredIds(Map<Integer, Integer> mapping) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
