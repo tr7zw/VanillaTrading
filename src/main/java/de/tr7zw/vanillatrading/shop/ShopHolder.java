@@ -98,18 +98,18 @@ public interface ShopHolder {
 	}
 
 	public default void setOutputStorage(int id, ItemStack[] items) {
-		setInputTwoStorage("output", id, items);
+		setStorage("output", id, items);
 	}
 	
 	public default void setInputOneStorage(int id, ItemStack[] items) {
-		setInputTwoStorage("input_1", id, items);
+		setStorage("input_1", id, items);
 	}
 	
 	public default void setInputTwoStorage(int id, ItemStack[] items) {
-		setInputTwoStorage("input_2", id, items);
+		setStorage("input_2", id, items);
 	}
 	
-	public default void setInputTwoStorage(String type, int id, ItemStack[] items) {
+	public default void setStorage(String type, int id, ItemStack[] items) {
 		getShopStorage().removeKey(type + "_" + id + "_storage");
 		List<String> itemStacks = getShopStorage().getStringList(type + "_" + id + "_storage");
 		for(ItemStack item : items) {
@@ -146,10 +146,6 @@ public interface ShopHolder {
 	public default void onInteract(Player player) {
 		if (player.getUniqueId().equals(getOwner())) {
 			new ShopConfigGui(this).openGui(player);
-			/*
-			 * GuiUtil.selectItemGui(player, item -> { player.sendMessage("Item: " + item);
-			 * });
-			 */
 		} else {
 			NMSHandler.getNMS().openMerchant(player, getMerchant());
 		}
@@ -174,13 +170,30 @@ public interface ShopHolder {
 	public default void rePopulateTrades(Merchant merchant) {
 		List<MerchantRecipe> trades = new ArrayList<MerchantRecipe>();
 		for (int i = 0; i < 12; i++) {
-			final int fi = i;
 			ItemStack output = getOutput(i);
 			ItemStack inputOne = getInputOne(i);
 			ItemStack inputTwo = getInputTwo(i);
 			if (output == null || (inputOne == null && inputTwo == null))
 				continue;
-			MerchantRecipe rec = new MerchantRecipe(output, 0, 64, false);
+			int maxUses = Integer.MAX_VALUE;
+			if(inputOne != null) {
+				int freeSlots = getFreeSlots("input_1", i);
+				int storage = freeSlots*inputOne.getMaxStackSize();
+				int uses = storage / inputOne.getAmount();
+				maxUses = Math.min(maxUses, uses);
+			}
+			if(inputTwo != null) {
+				int freeSlots = getFreeSlots("input_2", i);
+				int storage = freeSlots*inputTwo.getMaxStackSize();
+				int uses = storage / inputTwo.getAmount();
+				maxUses = Math.min(maxUses, uses);
+			}
+			if(output != null) { // more or less just for encapsulation
+				int stored = getStoredAmount("output", i, output); 
+				int uses = stored / output.getAmount();
+				maxUses = Math.min(maxUses, uses);
+			}
+			MerchantRecipe rec = new MerchantRecipe(output, 0, maxUses, false);
 			if (inputOne != null)
 				rec.addIngredient(inputOne);
 			if (inputTwo != null)
@@ -188,6 +201,28 @@ public interface ShopHolder {
 			trades.add(rec);
 		}
 		merchant.setRecipes(trades);
+	}
+	
+	public default int getStoredAmount(String type, int id, ItemStack targetItem) {
+		ItemStack[] storage = getStorage(type, id);
+		int amount = 0;
+		for(ItemStack item : storage) {
+			if(item != null && item.isSimilar(targetItem)) {
+				amount += item.getAmount();
+			}
+		}
+		return amount;
+	}
+	
+	public default int getFreeSlots(String type, int id) {
+		ItemStack[] storage = getStorage(type, id);
+		int amount = 0;
+		for(ItemStack item : storage) {
+			if(item == null || item.getType() == Material.AIR) {
+				amount++;
+			}
+		}
+		return amount;
 	}
 
 }
