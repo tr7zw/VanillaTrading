@@ -1,4 +1,4 @@
-package de.tr7zw.vanillatrading.shop.gui;
+package de.tr7zw.vanillatrading.nms.v15_R1;
 
 import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftInventoryMerchant;
 import org.bukkit.event.EventHandler;
@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 import de.tr7zw.vanillatrading.nms.ShopMerchant;
 
-public class MerchantGuiListener implements Listener {
+public class MerchantGuiListener15R1 implements Listener {
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent event) {

@@ -104,7 +104,7 @@ public interface ShopHolder {
 			}
 			return items;
 		}
-		return new ItemStack[0];
+		return new ItemStack[6*9];
 	}
 
 	public default void setOutputStorage(int id, ItemStack[] items) {
@@ -169,6 +169,26 @@ public interface ShopHolder {
 
 	public default void onBreak() {
 		ShopUtil.removeShop(getLocation());
+		for (int i = 0; i < 12; i++) {
+			ItemStack[] items = getInputOneStorage(i);
+			for(ItemStack item : items) {
+				if(item != null && item.getType() != Material.AIR) {
+					getWorld().dropItem(getLocation(), item);
+				}
+			}
+			items = getInputTwoStorage(i);
+			for(ItemStack item : items) {
+				if(item != null && item.getType() != Material.AIR) {
+					getWorld().dropItem(getLocation(), item);
+				}
+			}
+			items = getOutputStorage(i);
+			for(ItemStack item : items) {
+				if(item != null && item.getType() != Material.AIR) {
+					getWorld().dropItem(getLocation(), item);
+				}
+			}
+		}
 	}
 
 	public default void onShopClose(HumanEntity player) {
