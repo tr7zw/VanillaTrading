@@ -14,7 +14,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn --file pom.xml
+      run: mvn --file pom.xml package
     - name: Upload Artifact
       uses: actions/upload-artifact@v2-preview
       with:
