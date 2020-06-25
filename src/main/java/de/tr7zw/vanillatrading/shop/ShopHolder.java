@@ -159,7 +159,7 @@ public interface ShopHolder {
 			return;
 		}
 		setOpenBy(player);
-		if (player.getUniqueId().equals(getOwner())) {
+		if (player.getUniqueId().equals(getOwner()) || (player.hasPermission("vanillatrading.admin") && player.isSneaking())) {
 			new ShopConfigGui(this).openGui(player);
 		} else {
 			NMSHandler.getNMS().openMerchant(player, getMerchant());
