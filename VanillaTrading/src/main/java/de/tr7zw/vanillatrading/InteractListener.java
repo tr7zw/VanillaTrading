@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -16,6 +17,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import de.tr7zw.nbtapi.NBTTileEntity;
@@ -89,7 +91,7 @@ public class InteractListener implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock() != null
-				&& validShopBlocks.contains(event.getClickedBlock().getType())) {
+				&& validShopBlocks.contains(event.getClickedBlock().getType()) && event.getHand() == EquipmentSlot.HAND) {
 			ShopHolder shop = ShopUtil.getShop(event.getClickedBlock());
 			if (shop != null) {
 				event.setCancelled(true);
