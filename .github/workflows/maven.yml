@@ -19,4 +19,4 @@ jobs:
       uses: actions/upload-artifact@v2-preview
       with:
         name: VanillaTrading
-        path: target/*SNAPSHOT.jar
+        path: VanillaTrading/target/vanillatrading*.jar

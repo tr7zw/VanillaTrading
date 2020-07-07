@@ -11,7 +11,7 @@ import org.bukkit.inventory.MerchantRecipe;
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTEntity;
 
-public class EntityHolder implements ShopHolder {
+public class EntityHolder implements ExpandedShopHolder {
 
 	private final Entity entity;
 	private final NBTEntity nbtEntity;

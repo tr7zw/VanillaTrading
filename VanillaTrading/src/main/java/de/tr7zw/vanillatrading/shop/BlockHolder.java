@@ -11,7 +11,7 @@ import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTTileEntity;
 import de.tr7zw.vanillatrading.nms.NMSHandler;
 
-public class BlockHolder implements ShopHolder {
+public class BlockHolder implements ExpandedShopHolder {
 
 	private final Block block;
 	private final NBTTileEntity nbtTile;
