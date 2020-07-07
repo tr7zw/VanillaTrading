@@ -12,7 +12,7 @@
 	<artifactId>vanillatrading-Core</artifactId>
 	<packaging>jar</packaging>
 
-	<name>VanillaTrading</name>
+	<name>VanillaTrading-Core</name>
 	<url>https://github.com/tr7zw-Patreon/VanillaTrading</url>
 
 	<properties>

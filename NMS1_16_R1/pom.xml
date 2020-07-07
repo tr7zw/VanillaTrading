@@ -12,7 +12,7 @@
 	<artifactId>vanillatrading-NMS1_16_R1</artifactId>
 	<packaging>jar</packaging>
 
-	<name>VanillaTrading</name>
+	<name>VanillaTrading-NMS1_16_R1</name>
 	<url>https://github.com/tr7zw-Patreon/VanillaTrading</url>
 
 	<properties>
