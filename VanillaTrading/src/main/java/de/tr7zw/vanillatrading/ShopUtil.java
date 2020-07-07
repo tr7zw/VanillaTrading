@@ -26,7 +26,6 @@ public class ShopUtil {
 		NBTTileEntity nbtTile = new NBTTileEntity(block.getState());
 		if (nbtTile.getPersistentDataContainer().hasKey("vanillatrading")) {
 			BlockHolder holder = new BlockHolder(block, nbtTile);
-			System.out.println("Loaded new shop");
 			loadedShops.put(block.getLocation(), holder);
 			return holder;
 		}
