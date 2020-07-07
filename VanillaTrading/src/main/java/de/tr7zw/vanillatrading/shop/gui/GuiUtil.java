@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import de.tr7zw.vanillatrading.ShopUtil;
+import de.tr7zw.vanillatrading.shop.ShopHolder;
 
 public class GuiUtil {
 
@@ -18,8 +19,8 @@ public class GuiUtil {
 		player.openInventory(inventory);
 	}
 	
-	public static void openStorage(Player player, ItemStack[] items, ShopConfigGui gui, Consumer<Inventory> consumer) {
-		Inventory inventory = Bukkit.createInventory(new ItemStorageHolder(consumer), 9*6, "Item Storage");
+	public static void openStorage(Player player, ItemStack[] items, ShopHolder shop, ShopConfigGui gui, Consumer<Inventory> consumer) {
+		Inventory inventory = Bukkit.createInventory(new ItemStorageHolder(consumer), 9*shop.getStorageRows(), "Item Storage");
 		inventory.setContents(items);
 		player.openInventory(inventory);
 	}

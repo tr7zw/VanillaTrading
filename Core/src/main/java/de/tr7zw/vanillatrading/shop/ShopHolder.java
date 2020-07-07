@@ -47,6 +47,10 @@ public interface ShopHolder {
 		}
 		return getPersistentDataContainer().getCompound("vanillatrading");
 	}
+	
+	public int getStorageRows();
+	
+	public int getTradingSlots();
 
 	public default void setOwner(UUID uuid) {
 		getShopStorage().setString("ownerUUID", uuid.toString());
@@ -101,7 +105,7 @@ public interface ShopHolder {
 			}
 			return items;
 		}
-		return new ItemStack[6*9];
+		return new ItemStack[getStorageRows()*9];
 	}
 
 	public default void setOutputStorage(int id, ItemStack[] items) {
@@ -158,7 +162,7 @@ public interface ShopHolder {
 
 	public default ItemStack[] addItems(ItemStack[] inventory, ItemStack item, int times) {
 		// TODO can be done better
-		Inventory inv = Bukkit.createInventory(null, 6*9);
+		Inventory inv = Bukkit.createInventory(null, getStorageRows()*9);
 		inv.setContents(inventory);
 		for (int i = 0; i < times; i++)
 			inv.addItem(item);
@@ -187,7 +191,7 @@ public interface ShopHolder {
 	public default void rePopulateTrades(Merchant merchant) {
 		List<MerchantRecipe> trades = new ArrayList<MerchantRecipe>();
 		Map<Integer, Integer> mapping = new HashMap<Integer, Integer>();
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < getStorageRows(); i++) {
 			ItemStack output = getOutput(i);
 			ItemStack inputOne = getInputOne(i);
 			ItemStack inputTwo = getInputTwo(i);

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 
 import de.tr7zw.vanillatrading.ShopUtil;
+import de.tr7zw.vanillatrading.VanillaTrading;
 import de.tr7zw.vanillatrading.nms.NMSHandler;
 import de.tr7zw.vanillatrading.shop.gui.ShopConfigGui;
 
@@ -31,7 +32,7 @@ public interface ExpandedShopHolder extends ShopHolder {
 
 	public default void onBreak() {
 		ShopUtil.removeShop(getLocation());
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < getTradingSlots(); i++) {
 			ItemStack[] items = getInputOneStorage(i);
 			for(ItemStack item : items) {
 				if(item != null && item.getType() != Material.AIR) {
@@ -89,6 +90,14 @@ public interface ExpandedShopHolder extends ShopHolder {
 		rePopulateTrades(getMerchant());
 		NMSHandler.getNMS().resetTrader(getMerchant());
 		setOpenBy(null);
+	}
+	
+	public default int getStorageRows() {
+		return VanillaTrading.INSTANCE.getSettings().getShopStorageRows();
+	}
+	
+	public default int getTradingSlots() {
+		return VanillaTrading.INSTANCE.getSettings().getShopSlotAmount();
 	}
 	
 }

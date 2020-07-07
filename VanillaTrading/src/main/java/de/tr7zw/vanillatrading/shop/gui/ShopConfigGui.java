@@ -17,13 +17,13 @@ public class ShopConfigGui extends TRGui {
 	private boolean justClose = true;
 
 	public ShopConfigGui(ShopHolder shopHolder) {
-		super("Shop config", 6);
+		super("Shop config", Math.min(shopHolder.getTradingSlots() / 2 + 1, 6));
 		this.shopHolder = shopHolder;
 	}
 
 	@Override
 	public void setupGui() {
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < shopHolder.getTradingSlots(); i++) {
 			final int fi = i;
 			ItemStack output = shopHolder.getOutput(i);
 			ItemStack inputOne = shopHolder.getInputOne(i);
@@ -39,7 +39,7 @@ public class ShopConfigGui extends TRGui {
 					},
 					player -> {
 						justClose = false;
-						GuiUtil.openStorage(player, shopHolder.getInputOneStorage(fi), this, inv -> {
+						GuiUtil.openStorage(player, shopHolder.getInputOneStorage(fi), shopHolder, this, inv -> {
 							shopHolder.setInputOneStorage(fi, inv.getContents());
 							player.closeInventory();
 							cleanup();
@@ -56,7 +56,7 @@ public class ShopConfigGui extends TRGui {
 					},
 					player -> {
 						justClose = false;
-						GuiUtil.openStorage(player, shopHolder.getInputTwoStorage(fi), this, inv -> {
+						GuiUtil.openStorage(player, shopHolder.getInputTwoStorage(fi), shopHolder, this, inv -> {
 							shopHolder.setInputTwoStorage(fi, inv.getContents());
 							player.closeInventory();
 							cleanup();
@@ -73,7 +73,7 @@ public class ShopConfigGui extends TRGui {
 					},
 					player -> {
 						justClose = false;
-						GuiUtil.openStorage(player, shopHolder.getOutputStorage(fi), this, inv -> {
+						GuiUtil.openStorage(player, shopHolder.getOutputStorage(fi), shopHolder, this, inv -> {
 							shopHolder.setOutputStorage(fi, inv.getContents());
 							player.closeInventory();
 							cleanup();
