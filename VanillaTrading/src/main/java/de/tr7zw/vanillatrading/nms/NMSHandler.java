@@ -10,6 +10,10 @@ import de.tr7zw.vanillatrading.nms.v15_R1.NMS14R1;
 import de.tr7zw.vanillatrading.nms.v15_R1.NMS15R1;
 import de.tr7zw.vanillatrading.nms.v16_R1.MerchantGuiListener16R1;
 import de.tr7zw.vanillatrading.nms.v16_R1.NMS16R1;
+import de.tr7zw.vanillatrading.nms.v16_R2.MerchantGuiListener16R2;
+import de.tr7zw.vanillatrading.nms.v16_R2.NMS16R2;
+import de.tr7zw.vanillatrading.nms.v16_R3.MerchantGuiListener16R3;
+import de.tr7zw.vanillatrading.nms.v16_R3.NMS16R3;
 
 public class NMSHandler {
 
@@ -28,6 +32,14 @@ public class NMSHandler {
 		if(version == MinecraftVersion.MC1_16_R1) {
 			nmsImplementation = new NMS16R1();
 			Bukkit.getPluginManager().registerEvents(new MerchantGuiListener16R1(), VanillaTrading.INSTANCE);
+		}
+		if(version == MinecraftVersion.MC1_16_R2) {
+			nmsImplementation = new NMS16R2();
+			Bukkit.getPluginManager().registerEvents(new MerchantGuiListener16R2(), VanillaTrading.INSTANCE);
+		}
+		if(version == MinecraftVersion.MC1_16_R3) {
+			nmsImplementation = new NMS16R3();
+			Bukkit.getPluginManager().registerEvents(new MerchantGuiListener16R3(), VanillaTrading.INSTANCE);
 		}
 	}
 	

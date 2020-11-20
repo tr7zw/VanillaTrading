@@ -50,6 +50,18 @@
 			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>de.tr7zw.vanillatrading</groupId>
+			<artifactId>vanillatrading-NMS1_16_R2</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.tr7zw.vanillatrading</groupId>
+			<artifactId>vanillatrading-NMS1_16_R3</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
